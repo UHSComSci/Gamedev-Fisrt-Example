@@ -11,20 +11,19 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         rb.AddForce(new Vector3(0, 0, speed) * Time.deltaTime);
-
-        //if (Input.GetKey("w"))
-        //{
-        //    rb.AddForce(new Vector3(0, 0, speed) * Time.deltaTime);
-        //}
-        //if (Input.GetKey("s"))
-        //{
-        //    rb.AddForce(new Vector3(0, 0, -speed) * Time.deltaTime);
-        //}
+        bool dashed = false;
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dashed = true;
+            speed *= 10;
+        }
 
         if (Input.GetKey("a"))
             rb.AddForce(new Vector3(-speed, 0, 0) * Time.deltaTime);
         if (Input.GetKey("d"))
             rb.AddForce(new Vector3(speed, 0, 0) * Time.deltaTime);
+
+        if (dashed) speed /= 10;
 
         FindObjectOfType<GameManager>().UpdateScore(transform.position.z);
     }

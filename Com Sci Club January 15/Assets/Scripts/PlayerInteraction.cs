@@ -7,7 +7,12 @@ public class PlayerInteraction : MonoBehaviour
 
     public Rigidbody rb;
     public Movement movement;
+    public CameraFollow cameraFollow;
+
     public Transform explosionEffect;
+
+    public AudioSource audioSource;
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -17,6 +22,30 @@ public class PlayerInteraction : MonoBehaviour
             rb.AddExplosionForce(2000, collision.GetContact(0).point, 10);
             movement.enabled = false;
             FindObjectOfType<GameManager>().GameOver();
+
+            cameraFollow.shakeDuration = 0.3f;
+
+
+            Instantiate(explosionEffect, collision.GetContact(0).point, Quaternion.identity);
+
+            audioSource.Play();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //Instantiate(explosionEffect, collision.GetContact(0).point, Quaternion.identity);
         }
